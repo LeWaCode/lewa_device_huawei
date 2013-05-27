@@ -1,0 +1,36 @@
+#!/system/bin/sh
+#
+# Haptic vibrate
+#  VIBRATE_VALUE :0  vibrate close
+#  VIBRATE_VALUE :30  vibrate open
+mount -o rw,remount -t ext3 /dev/block/mmcblk0p12 /system
+
+chmod 777 /system/misc/30vibrate.conf
+
+VIBRATE_VALUE="30"
+
+# read conf
+if [ -e /system/misc/30vibrate.conf ]
+then
+VIBRATE_VALUE=`busybox grep VIBRATE_VALUE /system/misc/30vibrate.conf |busybox cut -d= -f2 `
+else
+VIBRATE_VALUE="30"
+fi
+
+echo $VIBRATE_VALUE
+
+if [ $VIBRATE_VALUE -gt 100 ]; then 
+    echo "VIBRATE_VALUE more than 100"
+    VIBRATE_VALUE="30"
+fi
+
+if [ $VIBRATE_VALUE -lt 0 ]; then 
+    echo "VIBRATE_VALUE less than 0"
+    VIBRATE_VALUE="0"
+fi
+
+echo $VIBRATE_VALUE
+
+echo $VIBRATE_VALUE > /sys/module/synaptics_i2c_rmi_1564/parameters/vibrate
+echo $VIBRATE_VALUE > /sys/module/atmel_i2c_rmi_QT602240/parameters/vibrate
+

@@ -1,0 +1,31 @@
+编译出来的Boot.img是不能正常启动的，需要重新打包，我直接就给出来了，直接用我的boot.img或者你自行解压修改。
+
+
+Cm7 build boot.img 's can boot ,you need to repack it, you can use my boot.img provided or unpack-repack like this:
+
+
+用法 Usage:
+
+george@lewa:~/android/$ python bootimg.py
+
+supported arguments:
+	--cpio-list
+	--repack-565
+	--repack-bootimg
+	--repack-ramdisk
+	--repack-rle
+	--unpack-565
+	--unpack-bootimg
+	--unpack-ramdisk
+	--unpack-rle
+	--unpack-updata
+	--unpack-yafffs
+	--unpack-yaffs
+	--unpack-yaffs2
+
+
+--unpack-bootimg  -> --unpack-ramdisk -> --repack-ramdisk ->  --repack-bootimg
+
+
+dir /wifi 0755
+file /wifi/dhd.ko initrd/wifi/dhd.ko 0777

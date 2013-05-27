@@ -1,0 +1,144 @@
+#
+# Copyright (C) 2011 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+USE_CAMERA_STUB := false
+BOARD_USE_FROYO_LIBCAMERA := true
+
+# inherit from the proprietary version
+-include vendor/huawei/u8500/BoardConfigVendor.mk
+
+PRODUCT_SPECIFIC_DEFINES += TARGET_PRELINKER_MAP=device/huawei/u8500/include/prelink-linux-arm.map
+TARGET_BOARD_PLATFORM := msm7k
+TARGET_CPU_ABI := armeabi-v6j
+TARGET_CPU_ABI2 := armeabi
+TARGET_ARCH_VARIANT := armv6j
+
+TARGET_NO_BOOTLOADER := true
+TARGET_NO_KERNEL := false
+TARGET_NO_RECOVERY := false
+TARGET_NO_RADIOIMAGE := true
+
+# Recovery
+TARGET_PREBUILT_RECOVERY_KERNEL := device/huawei/u8500/recovery_kernel
+
+# Wifi related defines
+ifeq (1,1)
+#by george,fix wifi err
+BOARD_WPA_SUPPLICANT_DRIVER := WEXT
+BOARD_WLAN_DEVICE           := bcm4319
+WPA_SUPPLICANT_VERSION      := VER_0_6_X
+WIFI_DRIVER_FW_STA_PATH     := "/system/wifi/firmware.bin"
+WIFI_DRIVER_FW_AP_PATH      := "/system/wifi/firmware_apsta.bin"
+WIFI_DRIVER_MODULE_NAME     := "dhd"
+WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/dhd.ko"
+WIFI_DRIVER_MODULE_ARG      := "firmware_path=/system/etc/firmware/firmware.bin nvram_path=/system/etc/firmware/nvram.txt"
+else
+#slax version, not work
+BOARD_WPA_SUPPLICANT_DRIVER := WEXT
+WPA_SUPPLICANT_VERSION      := VER_0_6_X
+WIFI_DRIVER_MODULE_NAME     := "dhd"
+WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/dhd.ko"
+WIFI_DRIVER_MODULE_ARG      := "firmware_path=/system/etc/firmware/firmware.bin nvram_path=/system/etc/firmware/nvram.txt"
+endif
+
+# from Geno
+# WIFI_CUSTOM_LOADER          := load_wifi
+
+# added by ioz9 for fix Bluetooth and FM Radio
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_HAVE_FM_RADIO := true
+BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
+BOARD_FM_DEVICE := bcm2049
+
+# removed by ioz9,it only use in offcial libaudio
+#BOARD_USE_BROADCOM_FM_VOLUME_HACK := true
+
+BOARD_KERNEL_CMDLINE := mem=211M console=null androidboot.hardware=qcom
+BOARD_KERNEL_BASE := 0x200100
+BOARD_PAGE_SIZE := 2048
+BOARD_PADDING_SIZE := 4096
+BOARD_EGL_CFG := device/huawei/u8500/egl.cfg
+
+# Graphics
+TARGET_HARDWARE_3D := false
+TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
+BOARD_NO_RGBX_8888 := true
+BOARD_AVOID_DRAW_TEXTURE_EXTENSION := true
+BOARD_HAS_LIMITED_EGL := true
+
+# Audio
+TARGET_PROVIDES_LIBAUDIO := true
+BOARD_USES_GENERIC_AUDIO := false
+
+# HW
+TARGET_USES_OLD_LIBSENSORS_HAL := false
+BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_QCOM_LIBS := true
+BOARD_USES_QCOM_LIBRPC := true
+BOARD_VENDOR_USE_AKMD := akm8973
+
+# GPS
+BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_QCOM_LIBS := true
+BOARD_USES_QCOM_GPS := true
+BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := u8500
+BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 1240
+
+# USB
+BOARD_USE_USB_MASS_STORAGE_SWITCH := true
+BOARD_CUSTOM_USB_CONTROLLER := ../../device/huawei/u8500/UsbController.cpp
+
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
+BOARD_UMS_LUNFILE := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
+#from u8160
+#TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/msm_hsusb/gadget/lun"
+#BOARD_UMS_LUNFILE := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
+
+# MISC
+WITH_JIT := true
+ENABLE_JSC_JIT := true
+JS_ENGINE := v8
+
+# dev:    size   erasesize  name
+# mtd0: 00500000 00020000 "boot"
+# mtd1: 00500000 00020000 "recovery"
+# mtd2: 00140000 00020000 "misc"
+# mtd3: 00060000 00020000 "splash"
+# mtd4: 0aa00000 00020000 "system"
+# mtd5: 04600000 00020000 "cache"
+# mtd6: 0bda0000 00020000 "userdata"
+# mtd7: 01400000 00020000 "userdata2"
+
+# fix this up by examining /proc/mtd on a running device
+BOARD_BOOTIMAGE_PARTITION_SIZE := 0x00500000
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x00500000
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x0aa00000
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x0bda0000
+BOARD_FLASH_BLOCK_SIZE := 262144
+
+TARGET_OTA_ASSERT_DEVICE := u8500,u8500
+PRODUCT_BUILD_PROP_OVERRIDES +=TARGET_BOOTLOADER_BOARD_NAME=u8500
+TARGET_BOOTLOADER_BOARD_NAME := u8500
+
+TARGET_PREBUILT_KERNEL := device/huawei/u8500/kernel
+
+# added by george, 2011-11-15
+TARGET_CUSTOM_RELEASETOOL := device/huawei/u8500/tools/u8500_update
+
+# added by ioz9 for dexpreopt
+#WITH_DEXPREOPT := true
+

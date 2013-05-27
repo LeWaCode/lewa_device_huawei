@@ -1,0 +1,40 @@
+HOW-TO BUILD:
+This short guide assumes you're on Ubuntu 11.04
+
+Getting the (right) source
+
+$ cd ~/android/system/
+
+$ repo init -u git://github.com/ivan19871002/android.git -b gingerbread
+
+$ repo sync -j16
+
+Depending on your connection, this might take awhile.
+
+Extract necessary binaries and proprietary files
+
+Building CM7
+
+Once thats done you can start compiling.
+
+Follow the aosp instructions on setting up the build environment. - http://source.android.com/source/download.html
+
+When the environment is setup, we need to grab a copy of Koush's ROM Manager. This is necessary to build CM7.
+
+$ cd
+
+$ ~/android/system/vendor/cyanogen/get-rommanager
+
+Now, we build:
+
+$ cd ~/android/system
+
+$ . build/envsetup.sh && brunch c8650
+
+Installing CM7
+
+If the build was successful, you can now take the update zip found in out/target/product/c8650/ and flash using a custom recovery. Make sure to grab the latest Gapps to complete the experience.
+
+When you want to rebuild with new changes or after syncing to the latest CM src make sure to do the following before you recompile.
+
+make clean

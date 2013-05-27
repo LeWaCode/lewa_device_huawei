@@ -1,0 +1,8 @@
+1.about Repack boot.img
+we must repack the boot.img,becasuse default boot.img the CM builded,will not boot successfully.
+
+2.signed zip
+
+java -Xmx512m -jar out/host/linux-x86/framework/signapk.jar -w build/target/product/security/testkey.x509.pem build/target/product/security/testkey.pk8 out/target/product/u8500/update-cm-7.1.0-U8500-KANG-signed.zip out/target/product/u8500/Lewa_OS_u8500_20111026.zip
+
+

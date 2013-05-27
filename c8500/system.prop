@@ -1,0 +1,40 @@
+#
+# system.prop for c8500
+#
+rild.libpath=/system/lib/libril-qc-1.so
+rild.libargs=-d /dev/smd0
+DEVICE_PROVISIONED=1
+ro.telephony.default_network=4
+view.fading_edge_length=8
+view.minimum_fling_velocity=25
+view.touch_slop=15
+ro.config.hwfeature_earphone=1
+ro.config.hw_proximitySensor=true
+view.scroll_friction=0.008
+mobiledata.interfaces=rmnet0,rmnet1,rmnet2
+ro.tether.denied=false
+sys.checkfs.fat=false
+ro.media.dec.jpeg.memcap=20000000
+# This will go away someday.
+# Debugging oem_rpc_svc.
+ro.rommanager.developerid=cyanogenmod
+ro.url.legal=http://www.google.com/intl/%s/mobile/android/basic/phone-legal.html
+ro.url.legal.android_privacy=http://www.google.com/intl/%s/mobile/android/basic/privacy.html
+ro.com.google.clientidbase=android-google
+ro.setupwizard.enterprise_mode=1
+ro.com.android.dateformat=MM-dd-yyyy
+ro.com.android.dataroaming=false
+ro.confg.hw_appsbootversion=c8500_lewa_20111115_APPSBOOT
+ro.confg.hw_appversion=c8500_lewa_20111115_KERNEL
+ro.confg.hw_appfsversion=c8500_lewa_20111115_SYSIMG
+ro.config.hw_region=zh_CN
+ro.config.hw_timeformat=ture
+ro.config.timeformat=24
+ro.config.hwfeature_enableScreenOn=1
+ro.config.ringtone=VeryAlarmed.ogg 
+ro.config.notification_sound=Heaven.ogg 
+ro.config.alarm_alert=Alarm_Classic.ogg 
+ro.config.vc_call_vol_steps=7
+ro.setupwizard.mode=OPTIONAL
+# add for error report  by shenqi ,move to vendor/cyanogen/common/common.mk
+#ro.modversion=CyanogenMod7-2.3.7

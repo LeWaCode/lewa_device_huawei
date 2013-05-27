@@ -1,0 +1,8 @@
+﻿#!/sbin/sh
+#
+# Find system information based on the kernel command line and populate 
+# nfo.prop
+lcd_id=`cat /proc/app_info | grep ILI9486`
+
+#write out a prop file for the updater script to read
+echo "lcd_id=$lcd_id" > /tmp/nfo.prop
